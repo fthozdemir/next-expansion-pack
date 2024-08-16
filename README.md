@@ -4,7 +4,7 @@ Helpfull tools to speed up your next.js project. It is compatible with [next-ts-
 
 ## Storybook(AI Powered)
 
-[See the readme](https://github.com/fthozdemir/expansion-pack/blob/main/storybook/README.md)
+[See the readme](https://github.com/fthozdemir/next-expansion-pack/blob/main/storybook/README.md)
 
 ```bash
 curl -s https://raw.githubusercontent.com/fthozdemir/next-expansion-pack/main/storybook/trigger.sh | bash -s
