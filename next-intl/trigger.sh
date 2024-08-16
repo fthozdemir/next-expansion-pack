@@ -131,6 +131,18 @@ echo ""
 echo -e "${GREEN}[Step 4] Downloading files${NC}"
 echo ""
 
+# Check if the script is running in an interactive shell
+if [[ -t 0 ]]; then
+  INTERACTIVE=true
+else
+  INTERACTIVE=false
+fi
+
+# Start the file downloading process
+echo ""
+echo -e "${GREEN}[Step 4] Downloading files${NC}"
+echo ""
+
 DIRNAME="next-intl"
 REPO="https://raw.githubusercontent.com/fthozdemir/next-expansion-pack/main"
 files=(
@@ -140,6 +152,8 @@ files=(
   "src/lib/navigation.ts"
   "src/components/language-switcher.tsx"
   "src/app/[locale]/page.tsx"
+  "src/app/[locale]/components/layout.tsx"
+  "src/app/[locale]/components/page.tsx"
   "messages/en.json"
   "messages/tr.json"
 )
@@ -155,21 +169,43 @@ do
   encoded_file=$(echo "$file" | sed 's/\[/%5B/g; s/\]/%5D/g')
 
   if [ -f "$file" ]; then
-    # Prompt the user if the file already exists
-    echo -e "${YELLOW}File '$file' already exists. Do you want to overwrite it? (yes/no)${NC}"
-    read -r answer
-    if [ "$answer" != "${answer#[Yy]}" ] ;then
-        curl -LJs -o "$file" "$REPO/$DIRNAME/$encoded_file"
-        echo -e "${GREEN}Overwritten: $file${NC}"
+    if $INTERACTIVE; then
+      # Prompt the user if the file already exists
+      echo -e "${YELLOW}File '$file' already exists. Do you want to overwrite it? (yes/no)${NC}"
+      read -r answer
+      if [[ "$answer" =~ ^[Yy]$ ]]; then
+          echo -e "${CYAN}Overwriting $file with $REPO/$DIRNAME/$encoded_file${NC}"
+          curl -LJs -o "$file" "$REPO/$DIRNAME/$encoded_file"
+          if [ $? -eq 0 ]; then
+            echo -e "${GREEN}Successfully overwritten: $file${NC}"
+          else
+            echo -e "${RED}Failed to overwrite: $file${NC}"
+          fi
+      else
+          echo -e "${RED}$file not changed, please add changes manually.${NC}"
+      fi
     else
-        echo -e "${RED}$file not changed, please add changes manually.${NC}"
+      # Non-interactive mode: default to overwrite or skip
+      echo -e "${CYAN}Overwriting (non-interactive): $file with $REPO/$DIRNAME/$encoded_file${NC}"
+      curl -LJs -o "$file" "$REPO/$DIRNAME/$encoded_file"
+      if [ $? -eq 0 ]; then
+        echo -e "${GREEN}Successfully overwritten: $file${NC}"
+      else
+        echo -e "${RED}Failed to overwrite: $file${NC}"
+      fi
     fi
   else
     # Download the file if it doesn't exist
+    echo -e "${CYAN}Downloading $file from $REPO/$DIRNAME/$encoded_file${NC}"
     curl -LJs -o "$file" "$REPO/$DIRNAME/$encoded_file"
-    echo -e "${GREEN}Downloaded: $file${NC}"
+    if [ $? -eq 0 ]; then
+      echo -e "${GREEN}Downloaded: $file${NC}"
+    else
+      echo -e "${RED}Failed to download: $file${NC}"
+    fi
   fi
 done
+
 
 #endregion //*=========== Step 4: Add files ===========
 
