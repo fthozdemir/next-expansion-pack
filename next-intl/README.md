@@ -1,17 +1,13 @@
-# Storybook Expantion
+# Next-Intl internalizaton
 
-This expansion will install and configure Storybook to work with Tailwind CSS. It generates your stories with OpenAI.
+This expansion will install and configure next-intl with localized pathnames and strictly typed locales. next-intl is a large and complex library, so you may want to look at the documentation for more details: [next-int docs](https://next-intl-docs.vercel.app/)
 
 ## Installation
 
 ```bash
-curl -s https://raw.githubusercontent.com/fthozdemir/next-expansion-pack/main/storybook/trigger.sh | bash -s
+curl -s https://raw.githubusercontent.com/fthozdemir/next-expansion-pack/main/next-intl/trigger.sh | bash -s
 ```
 
-## Configuration
+#### Note
 
-The Bash script automatically adds the **OPEN_AI_APIKEY** environment variable to all necessary files. Just don't forget to add your key in the .env file.
-
-## Usage
-
-`pnpm plop` will generate a .stories file for the selected component. To select your file, just type five characters of the file name, and you may select the desired one with the arrow keys in the terminal.
+You can find the next-intl files in this repo for manual implementation. If you receive a warning about a file already existing during installation, consider resolving the conflict manually.

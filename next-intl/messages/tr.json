@@ -2,5 +2,10 @@
   "home": {
     "helloWorld": "Merhaba Dünya",
     "welcome": "Hoşgeldiniz"
+  },
+  "components": {
+    "components": "Bileşenler",
+    "button": "Buton",
+    "skeleton": "İskelet"
   }
 }

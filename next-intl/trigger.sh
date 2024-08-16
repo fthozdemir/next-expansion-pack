@@ -11,6 +11,14 @@ echo "Next-Intl Internationalization Expansion"
 echo "========================="
 echo -e "${NC}"
 
+#region //*=========== Install Packages ===========
+echo -e "${NC}"
+echo -e "${GREEN}Downloading Next-Intl ${NC}"
+echo -e "This may take a while to download."
+echo ""
+pnpm install next-intl
+
+#endregion //*=========== Install Packages ===========
 #region //*=========== Step 1: Add VSCode Rules ===========
 
 # Variables for file paths
@@ -139,19 +147,26 @@ files=(
 # Loop through the list of files
 for file in "${files[@]}"
 do
+  # Create directory structure for the file
+  dir_path=$(dirname "$file")
+  mkdir -p "$dir_path"
+
+  # Encode the file path for the URL
+  encoded_file=$(echo "$file" | sed 's/\[/%5B/g; s/\]/%5D/g')
+
   if [ -f "$file" ]; then
     # Prompt the user if the file already exists
     echo -e "${YELLOW}File '$file' already exists. Do you want to overwrite it? (yes/no)${NC}"
     read -r answer
     if [ "$answer" != "${answer#[Yy]}" ] ;then
-        curl -LJs -o "$file" "$REPO/$DIRNAME/$file"
+        curl -LJs -o "$file" "$REPO/$DIRNAME/$encoded_file"
         echo -e "${GREEN}Overwritten: $file${NC}"
     else
         echo -e "${RED}$file not changed, please add changes manually.${NC}"
     fi
   else
     # Download the file if it doesn't exist
-    curl -LJs -o "$file" "$REPO/$DIRNAME/$file"
+    curl -LJs -o "$file" "$REPO/$DIRNAME/$encoded_file"
     echo -e "${GREEN}Downloaded: $file${NC}"
   fi
 done
