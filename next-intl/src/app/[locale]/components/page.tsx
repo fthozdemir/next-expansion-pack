@@ -1,4 +1,3 @@
-import Head from "next/head";
 import { useTranslations } from "next-intl";
 import * as React from "react";
 
@@ -10,7 +9,6 @@ export default function ComponentPage() {
 
   return (
     <section>
-      <Head>{t("components")}</Head>
       <h1>{t("components")}</h1>
       <h2>{t("button")}</h2>
       <div className="flex gap-4">
