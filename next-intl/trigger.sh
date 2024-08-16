@@ -185,14 +185,8 @@ do
           echo -e "${RED}$file not changed, please add changes manually.${NC}"
       fi
     else
-      # Non-interactive mode: default to overwrite or skip
-      echo -e "${CYAN}Overwriting (non-interactive): $file with $REPO/$DIRNAME/$encoded_file${NC}"
-      curl -LJs -o "$file" "$REPO/$DIRNAME/$encoded_file"
-      if [ $? -eq 0 ]; then
-        echo -e "${GREEN}Successfully overwritten: $file${NC}"
-      else
-        echo -e "${RED}Failed to overwrite: $file${NC}"
-      fi
+      # Non-interactive mode: default to skip
+      echo -e "${YELLOW}Non-interactive mode: Skipping existing file: $file${NC}"
     fi
   else
     # Download the file if it doesn't exist
