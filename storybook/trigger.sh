@@ -89,11 +89,11 @@ fi
 
 #region  //*=========== Add Envs ===========
 
-API_KEY_LINE='OPENAI_API_KEY="sk-..."'
+API_KEY_LINE='OPENAI_API_KEY='
 VALIDATION_LINE='  OPENAI_API_KEY: z.string().min(8, "OPENAI_API_KEY is required"),'
 
 # Add API key to all .env.* files
-for file in .env.*; do
+for file in .env .env.*; do
   if [ -f "$file" ]; then
     if ! grep -q "^${API_KEY_LINE}" "$file"; then
       echo "$API_KEY_LINE" >> "$file"

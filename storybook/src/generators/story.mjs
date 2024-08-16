@@ -20,6 +20,8 @@ export default {
       type: "custom",
       run: async (data) => {
         try {
+          if (!process.env.OPENAI_API_KEY)
+            throw new Error("OPENAI_API_KEY is not set in .env file");
           console.log("data: ", data);
           const filePath = data.path;
           const fileContent = await readFile(filePath, "utf8");
