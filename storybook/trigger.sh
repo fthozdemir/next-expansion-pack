@@ -53,7 +53,7 @@ echo -e "${GREEN}[Step 4] Downloading files${NC}"
 echo ""
 
 DIRNAME="storybook"
-REPO="https://raw.githubusercontent.com/fthozdemir/expansion-pack/main"
+REPO="https://raw.githubusercontent.com/fthozdemir/next-expansion-pack/main"
 
 files=(
   "plopfile.mjs"
