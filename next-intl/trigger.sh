@@ -16,7 +16,7 @@ echo -e "${NC}"
 echo -e "${GREEN}Downloading Next-Intl ${NC}"
 echo -e "This may take a while to download."
 echo ""
-pnpm install next-intl
+pnpm install next-intl@3.26.5
 
 #endregion //*=========== Install Packages ===========
 #region //*=========== Step 1: Add VSCode Rules ===========
